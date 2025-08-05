@@ -1,0 +1,29 @@
+{
+  "name": "backend-engineer-portfolio",
+  "version": "1.0.0",
+  "description": "A clean and modern portfolio website for a Back-End Engineer specializing in Django and Python",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "backend",
+    "django",
+    "python",
+    "netlify",
+    "static-site"
+  ],
+  "author": "John Smith",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alsaeedhasan/portfolio"
+  },
+  "homepage": "https://johnsmith.netlify.app",
+  "devDependencies": {},
+  "dependencies": {}
+}
