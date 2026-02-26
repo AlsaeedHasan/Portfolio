@@ -353,58 +353,137 @@
         text-shadow: none;
       }
 
-      /* Hero decorative elements */
-      .hero-decor {
+      /* Hero decorative elements - removed in favour of inline rings in profile wrapper */
+
+      .hero-profile-photo {
         position: absolute;
-        top: 15%;
-        right: 5%;
-        width: 350px;
-        height: 350px;
+        top: 50%;
+        right: 8%;
+        transform: translateY(-50%);
+        width: 320px;
+        height: 320px;
+        overflow: visible;
         opacity: 0;
-        animation: fadeIn 1.5s ease forwards 1.3s;
+        animation: fadeIn 1.2s ease forwards 0.9s;
       }
 
-      .hero-decor .orbit {
-        position: absolute;
-        border: 1px solid var(--border-accent);
-        border-radius: 50%;
-        animation: spin 20s linear infinite;
-      }
-
-      .hero-decor .orbit:nth-child(1) {
+      .profile-image-wrapper {
+        position: relative;
         width: 100%;
         height: 100%;
-        top: 0;
-        left: 0;
       }
 
-      .hero-decor .orbit:nth-child(2) {
-        width: 70%;
-        height: 70%;
-        top: 15%;
-        left: 15%;
-        animation-duration: 15s;
-        animation-direction: reverse;
-        border-color: rgba(240, 165, 0, 0.15);
-      }
-
-      .hero-decor .orbit:nth-child(3) {
-        width: 40%;
-        height: 40%;
-        top: 30%;
-        left: 30%;
-        animation-duration: 10s;
-      }
-
-      .hero-decor .orbit-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--accent-cyan);
+      .profile-image {
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(0, 229, 199, 0.35);
+        box-shadow:
+          0 0 0 6px rgba(0, 229, 199, 0.06),
+          0 0 40px rgba(0, 229, 199, 0.18);
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+
+      /* ---- Floating tech chips ---- */
+      @keyframes floatBob {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-9px);
+        }
+      }
+      @keyframes floatBobB {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      @keyframes floatBobC {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      .tech-chip {
         position: absolute;
-        top: -4px;
-        left: 50%;
-        box-shadow: 0 0 15px var(--accent-cyan-glow);
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        padding: 5px 11px;
+        border-radius: 20px;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 5;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(0, 229, 199, 0.22);
+        background: rgba(0, 229, 199, 0.06);
+        color: var(--accent-cyan);
+        box-shadow: 0 0 14px rgba(0, 229, 199, 0.12);
+        animation: floatBob 4.2s ease-in-out infinite;
+      }
+
+      /* warm-tinted chips */
+      .tech-chip.warm {
+        border-color: rgba(240, 165, 0, 0.28);
+        background: rgba(240, 165, 0, 0.07);
+        color: var(--accent-warm);
+        box-shadow: 0 0 14px rgba(240, 165, 0, 0.12);
+      }
+
+      /* individual placements & delays */
+      .tech-chip:nth-child(1) {
+        top: -18px;
+        right: 30px;
+        animation-name: floatBob;
+        animation-delay: 1s;
+        animation-duration: 4s;
+      }
+      .tech-chip:nth-child(2) {
+        top: 18%;
+        right: -90px;
+        animation-name: floatBobB;
+        animation-delay: 1.3s;
+        animation-duration: 5.2s;
+      }
+      .tech-chip:nth-child(3) {
+        bottom: 22%;
+        right: -70px;
+        animation-name: floatBobC;
+        animation-delay: 1.6s;
+        animation-duration: 4.6s;
+      }
+      .tech-chip:nth-child(4) {
+        bottom: -18px;
+        right: 40px;
+        animation-name: floatBob;
+        animation-delay: 1.9s;
+        animation-duration: 3.8s;
+      }
+      .tech-chip:nth-child(5) {
+        bottom: -18px;
+        left: 35px;
+        animation-name: floatBobB;
+        animation-delay: 2.1s;
+        animation-duration: 4.8s;
+      }
+      .tech-chip:nth-child(6) {
+        top: 18%;
+        left: -75px;
+        animation-name: floatBobC;
+        animation-delay: 2.4s;
+        animation-duration: 5s;
       }
 
       .hero-scroll-indicator {
@@ -1053,8 +1132,30 @@
 
       /* ========== RESPONSIVE ========== */
       @media (max-width: 1024px) {
-        .hero-decor {
-          display: none;
+        .hero {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding-top: 7rem;
+          gap: 3rem;
+        }
+        .hero-content {
+          max-width: 100%;
+        }
+        .hero-profile-photo {
+          position: relative;
+          top: auto;
+          right: auto;
+          transform: none;
+          width: 220px;
+          height: 220px;
+          flex-shrink: 0;
+          order: -1;
+          overflow: visible;
+        }
+        .hero-actions {
+          justify-content: center;
         }
         .about-grid {
           grid-template-columns: 1fr;
@@ -1132,6 +1233,16 @@
         .hero-actions .btn-ghost {
           width: 100%;
           text-align: center;
+        }
+        /* Prevent chips from overflowing viewport on small phones */
+        .tech-chip:nth-child(2) {
+          right: -58px;
+        }
+        .tech-chip:nth-child(3) {
+          right: -48px;
+        }
+        .tech-chip:nth-child(6) {
+          left: -52px;
         }
       }
 
@@ -1231,9 +1342,37 @@
         text-transform: uppercase;
         letter-spacing: 1px;
       }
+
+      /* ========== MOUSE GLOW EFFECT ========== */
+      .cursor-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 229, 199, 0.15) 0%,
+          rgba(0, 229, 199, 0.08) 25%,
+          rgba(0, 229, 199, 0.03) 50%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        mix-blend-mode: screen;
+      }
+
+      .cursor-glow.active {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
+    <!-- Mouse Glow Effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <!-- Grid Background -->
     <div class="grid-bg"></div>
 
@@ -1274,11 +1413,21 @@
         </div>
       </div>
 
-      <!-- Decorative orbits -->
-      <div class="hero-decor" aria-hidden="true">
-        <div class="orbit"><div class="orbit-dot"></div></div>
-        <div class="orbit"><div class="orbit-dot"></div></div>
-        <div class="orbit"><div class="orbit-dot"></div></div>
+      <!-- Profile Photo -->
+      <div class="hero-profile-photo">
+        <div class="profile-image-wrapper">
+          <span class="tech-chip">FastAPI</span>
+          <span class="tech-chip warm">PostgreSQL</span>
+          <span class="tech-chip">Redis</span>
+          <span class="tech-chip warm">Docker</span>
+          <span class="tech-chip">Celery</span>
+          <span class="tech-chip warm">Python</span>
+          <img
+            src="ME_1.png"
+            alt="Alsaeed Khalil - Backend Engineer"
+            class="profile-image"
+          />
+        </div>
       </div>
 
       <div class="hero-scroll-indicator">
@@ -1586,10 +1735,8 @@
               <div class="contact-icon">@</div>
               <div>
                 <div class="contact-label">Email</div>
-                <a
-                  href="mailto:sa3ed7asanofficial@gmail.com"
-                  class="contact-value"
-                  >sa3ed7asanofficial@gmail.com</a
+                <a href="mailto:saeedhasan.dev@gmail.com" class="contact-value"
+                  >saeedhasan.dev@gmail.com</a
                 >
               </div>
             </div>
@@ -1604,8 +1751,8 @@
               <div class="contact-icon">☎</div>
               <div>
                 <div class="contact-label">Phone</div>
-                <a href="tel:+201201653211" class="contact-value"
-                  >+20 120 165 3211</a
+                <a href="tel:+201121115067" class="contact-value"
+                  >+20 112 111 5067</a
                 >
               </div>
             </div>
@@ -1676,7 +1823,7 @@
           rel="noopener noreferrer"
           >GitHub</a
         >
-        <a href="mailto:sa3ed7asanofficial@gmail.com">Email</a>
+        <a href="mailto:saeedhasan.dev@gmail.com">Email</a>
       </div>
     </footer>
 
@@ -1798,12 +1945,44 @@
 
       // ========== PARALLAX SUBTLE ==========
       window.addEventListener("mousemove", (e) => {
-        const decor = document.querySelector(".hero-decor");
-        if (!decor) return;
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        decor.style.transform = `translate(${x}px, ${y}px)`;
+        if (window.innerWidth <= 1024) return;
+        const photo = document.querySelector(".hero-profile-photo");
+        if (!photo) return;
+        const x = (e.clientX / window.innerWidth - 0.5) * 12;
+        const y = (e.clientY / window.innerHeight - 0.5) * 12;
+        photo.style.transform = `translateY(-50%) translate(${x}px, ${y}px)`;
       });
+
+      // ========== MOUSE GLOW EFFECT ==========
+      const cursorGlow = document.getElementById("cursorGlow");
+      let mouseX = 0;
+      let mouseY = 0;
+      let glowX = 0;
+      let glowY = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorGlow.classList.add("active");
+      });
+
+      document.addEventListener("mouseleave", () => {
+        cursorGlow.classList.remove("active");
+      });
+
+      // Smooth glow follow animation
+      function animateGlow() {
+        const speed = 0.15;
+        glowX += (mouseX - glowX) * speed;
+        glowY += (mouseY - glowY) * speed;
+
+        cursorGlow.style.left = glowX + "px";
+        cursorGlow.style.top = glowY + "px";
+
+        requestAnimationFrame(animateGlow);
+      }
+
+      animateGlow();
     </script>
   </body>
 </html>
