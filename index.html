@@ -1792,13 +1792,22 @@
           onsubmit="handleSubmit(event)"
         >
           <div class="form-group">
-            <input type="text" placeholder="Your Name" required />
+            <input type="text" name="name" placeholder="Your Name" required />
           </div>
           <div class="form-group">
-            <input type="email" placeholder="Your Email" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
           </div>
           <div class="form-group">
-            <textarea placeholder="Your Message" required></textarea>
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              required
+            ></textarea>
           </div>
           <button
             type="submit"
@@ -1925,22 +1934,61 @@
       });
 
       // ========== FORM HANDLER ==========
-      function handleSubmit(e) {
+      async function handleSubmit(e) {
         e.preventDefault();
-        const btn = e.target.querySelector('button[type="submit"]');
+        const form = e.target;
+        const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
-        btn.textContent = "✓ Message Sent!";
-        btn.style.background = "var(--accent-cyan)";
-        btn.style.color = "var(--bg-primary)";
-        btn.style.borderColor = "var(--accent-cyan)";
 
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = "";
-          btn.style.color = "";
-          btn.style.borderColor = "";
-          e.target.reset();
-        }, 3000);
+        // Get form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        // Loading state
+        btn.textContent = "Sending...";
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Success state
+            btn.textContent = "✓ Message Sent!";
+            btn.style.background = "var(--accent-cyan)";
+            btn.style.color = "var(--bg-primary)";
+            btn.style.borderColor = "var(--accent-cyan)";
+            form.reset();
+          } else {
+            // Error state from server
+            throw new Error(result.error || "Failed to send message");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // Error state
+          btn.textContent = "✗ Failed to Send";
+          btn.style.background = "rgba(255, 50, 50, 0.2)";
+          btn.style.color = "#ff6b6b";
+          btn.style.borderColor = "#ff6b6b";
+        } finally {
+          // Reset button after 3 seconds
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            btn.style.background = "";
+            btn.style.color = "";
+            btn.style.borderColor = "";
+          }, 3000);
+        }
       }
 
       // ========== PARALLAX SUBTLE ==========

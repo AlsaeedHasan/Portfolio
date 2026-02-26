@@ -1,0 +1,23 @@
+{
+  "name": "backendportfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlsaeedHasan/Portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlsaeedHasan/Portfolio/issues"
+  },
+  "homepage": "https://github.com/AlsaeedHasan/Portfolio#readme",
+  "dependencies": {
+    "nodemailer": "^8.0.1"
+  }
+}
